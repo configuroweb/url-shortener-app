@@ -11,7 +11,7 @@ async function shortenURL() {
             const response = await fetch(`https://api.tinyurl.com/create`, {
                 method: 'POST',
                 headers: {
-                    'Authorization': 'Bearer ge3aT4chkYH97iYYxyWabisf3vLplQuCFI5qzg6RTKTJwILiy8npirngDHqf',
+                    'Authorization': 'Bearer Ys0vqg017NtoOxA3lTefPjKzsnjR4TLmf31to2yjh7TrlSUKlITj9bYgSBe3',
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({ url: originalURL })
