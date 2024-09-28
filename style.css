@@ -19,9 +19,23 @@ h1 {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+#urlInput {
+    height: auto;
+    padding: 10px 15px;
+    font-size: 16px;
+    line-height: 1.5;
+    border: 1px solid #ced4da;
+    border-radius: 4px 0 0 4px;
+}
+
 .btn-shorten {
+    padding: 10px 15px;
+    font-size: 16px;
+    line-height: 1.5;
     background-color: #007bff;
     border-color: #007bff;
+    color: white;
+    border-radius: 0 4px 4px 0;
     transition: all 0.3s ease;
 }
 
@@ -78,8 +92,19 @@ table {
         font-size: 24px;
     }
 
+    .input-group {
+        flex-direction: column;
+    }
+
+    #urlInput, .btn-shorten {
+        width: 100%;
+        border-radius: 4px;
+        margin-bottom: 10px;
+    }
+
     .table th, .table td {
         padding: 10px;
+        font-size: 14px;
     }
 
     .footer {
