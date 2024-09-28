@@ -1,61 +1,70 @@
-const urlInput = document.getElementById('urlInput');
-const urlTableBody = document.getElementById('urlTableBody');
-let urlList = JSON.parse(localStorage.getItem('urlList')) || [];
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Shortener App</title>
 
-// Function to shorten the URL using TinyURL API
-async function shortenURL() {
-    const originalURL = urlInput.value.trim();
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Style CSS -->
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body class="d-flex flex-column min-vh-100">
+    <div class="main flex-grow-1">
+        <div class="container">
+            <h1 class="mb-4"><i class="fas fa-link me-2"></i>URL Shortener</h1>
 
-    if (originalURL) {
-        try {
-            const response = await fetch(`https://api.tinyurl.com/create`, {
-                method: 'POST',
-                headers: {
-                    'Authorization': 'Bearer ge3aT4chkYH97iYYxyWabisf3vLplQuCFI5qzg6RTKTJwILiy8npirngDHqf',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ url: originalURL })
-            });
-            const data = await response.json();
+            <!-- URL Input Section -->
+            <div class="row justify-content-center mb-4">
+                <div class="col-12">
+                    <div class="input-group flex-column flex-md-row">
+                        <input id="urlInput" type="text" class="form-control mb-2 mb-md-0" placeholder="Enter URL to shorten">
+                        <button class="btn btn-primary btn-shorten w-100 w-md-auto" onclick="shortenURL()">
+                            <i class="fas fa-compress-alt me-2"></i>Shorten URL
+                        </button>
+                    </div>
+                </div>
+            </div>
 
-            if (data && data.data && data.data.tiny_url) {
-                const shortURL = data.data.tiny_url;
-                const urlData = { originalURL, shortURL };
+            <!-- URL Table Section -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Original URL</th>
+                                    <th scope="col">Shortened URL</th>
+                                </tr>
+                            </thead>
+                            <tbody id="urlTableBody">
+                                <!-- Data will be inserted here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-                // Save to local storage
-                urlList.push(urlData);
-                localStorage.setItem('urlList', JSON.stringify(urlList));
+    <!-- Footer -->
+    <footer class="footer mt-auto py-3 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md-6 text-center text-md-start mb-2 mb-md-0">
+                    <a href="https://configuroweb.com" target="_blank" class="text-muted">Spanish Free Apps</a>
+                </div>
+                <div class="col-12 col-md-6 text-center text-md-end">
+                    <a href="https://appscweb.com" target="_blank" class="text-muted">English Free Apps</a>
+                </div>
+            </div>
+        </div>
+    </footer>
 
-                // Update the table
-                addToTable(urlData, urlList.length);
-                urlInput.value = ''; // Clear input field
-            } else {
-                console.error('Failed to shorten the URL.');
-            }
-        } catch (error) {
-            console.error('Error:', error);
-        }
-    }
-}
-
-// Function to add a new row to the table
-function addToTable(urlData, index) {
-    const newRow = `
-        <tr>
-            <th scope="row">${index}</th>
-            <td><a href="${urlData.originalURL}" target="_blank">${urlData.originalURL}</a></td>
-            <td><a href="${urlData.shortURL}" target="_blank" class="short-url">${urlData.shortURL}</a></td>
-        </tr>
-    `;
-    urlTableBody.insertAdjacentHTML('beforeend', newRow);
-}
-
-// Function to load data from local storage and populate the table on page load
-function loadTable() {
-    urlList.forEach((urlData, index) => {
-        addToTable(urlData, index + 1);
-    });
-}
-
-// Initialize the table with stored data on page load
-window.onload = loadTable;
+    <!-- Script JS -->
+    <script src="./script.js"></script>
+</body>
+</html>
